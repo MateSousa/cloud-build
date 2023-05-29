@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"github.com/MateSousa/internal/postgres"
+	"github.com/MateSousa/cloud-build/database/postgres"
 )
 
 func main() {

@@ -1,10 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
-	"github.com/MateSousa/cloud-build/cmd/api"
 	"github.com/MateSousa/cloud-build/initializers"
+	"github.com/MateSousa/cloud-build/models"
 )
 
 func init() {
@@ -14,17 +15,11 @@ func init() {
 	}
 
 	initializers.ConnectDB(&config)
-	initializers.ConnectRedis(&config)
-
-	api.Init()
 }
 
 func main() {
-	config, err := initializers.LoadConfig(".")
-	if err != nil {
-		log.Fatal("? Could not load environment variables", err)
-	}
-
-	log.Default().Println(config)
-
+	initializers.DB.AutoMigrate(&models.User{}, &models.Token{})
+	
+	fmt.Println("? Migration complete")
 }
+
